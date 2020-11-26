@@ -2,9 +2,9 @@
 
 Final Year Project
 Developed by:
-Rishabh Srivastava 26
-Saksham Kumar 29
-Shivji Dubey 34
+1. Rishabh Srivastava 26
+2. Saksham Kumar 29
+3 .Shivji Dubey 34
 
 ## Getting Started
 
