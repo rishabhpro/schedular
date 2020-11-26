@@ -1,6 +1,10 @@
 # schedular
 
-A new Flutter application.
+Final Year Project
+Developed by:
+Rishabh Srivastava
+Saksham Kumar
+Shivji Dubey
 
 ## Getting Started
 
