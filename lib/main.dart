@@ -5,7 +5,7 @@ import 'package:schedular/screens/Student_signup.dart';
 
 void main() {
   runApp(MaterialApp(
-    home:LandingPage(),
+    home:Ssp(),
   ));
 }
 

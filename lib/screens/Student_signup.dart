@@ -7,6 +7,14 @@ class Ssp extends StatefulWidget {
 class _SspState extends State<Ssp> {
   String dropdownValue = 'CSE';
   String dropdownValueYear = '1st';
+  final _text = TextEditingController();
+  bool _validate = false;
+
+  @override
+  void dispose() {
+    _text.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,11 +61,13 @@ class _SspState extends State<Ssp> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           TextField(
+                           // controller: _text,
                             style: TextStyle(fontSize: 20 , color: Colors.black38),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.grey[200],
                               hintText: 'Name',
+                             // errorText: _validate ? 'Value Can\'t Be Empty' : null,
                               contentPadding: const EdgeInsets.all(15),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white),
@@ -71,11 +81,13 @@ class _SspState extends State<Ssp> {
                           ),
                           SizedBox(height: 20,),
                           TextField(
+                           // controller: _text,
                             style: TextStyle(fontSize: 20 , color: Colors.black38),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.grey[200],
                               hintText: 'Email Address',
+                            //  errorText: _validate ? 'Value Can\'t Be Empty' : null,
                               contentPadding: const EdgeInsets.all(15),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white),
@@ -160,12 +172,14 @@ class _SspState extends State<Ssp> {
                           ),
                           SizedBox(height: 20,),
                           TextField(
+                            //controller: _text,
                             obscureText: true,
                             style: TextStyle(fontSize: 20 , color: Colors.black38),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.grey[200],
                               hintText: 'Password',
+                          //    errorText: _validate ? 'Value Can\'t Be Empty' : null,
                               contentPadding: const EdgeInsets.all(15),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white),
@@ -179,12 +193,14 @@ class _SspState extends State<Ssp> {
                           ),
                           SizedBox(height: 20,),
                           TextField(
+                            //controller: _text,
                             obscureText: true,
                             style: TextStyle(fontSize: 20 , color: Colors.black38),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.grey[200],
                               hintText: 'Confirm Password',
+                             // errorText: _validate ? 'Value Can\'t Be Empty' : null,
                               contentPadding: const EdgeInsets.all(15),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white),
