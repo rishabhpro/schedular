@@ -3,11 +3,6 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("schedular"),
-        centerTitle: true,
-        backgroundColor: Colors.grey[800],
-      ),
       backgroundColor: Colors.grey,
       body: Center(
         child: InkWell( //This widget is used when we don't want a button but want to navigate to some other page or do some other action it
@@ -17,26 +12,26 @@ class LandingPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start ,
               children: [
-                CircleAvatar(
-                  radius: 160,
-                  child: Text("App logo"),
-                ),
+                SizedBox(height: 200,),
+                Image.asset('assets/logo.png'),
                 Divider(
                   color: Colors.black38,
                   height: 60.0,
                   indent: 50.0,
                   endIndent: 50.0,
                 ),
-                FlatButton( // here i have created a button which will navigate to another page
+                SizedBox(height: 140,),
+                RaisedButton( // here i have created a button which will navigate to another page
                   onPressed: null,
+                  color: Colors.redAccent[400],
                   child: Text(
                     "Get Started ",
                     style: TextStyle(
-                      fontSize: 30.0,
+                      fontSize: 20.0,
 
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
