@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ],
             ),
-            SizedBox(height: 200.0),
+            SizedBox(height: 20.0),
             Row(
               children: <Widget>[
                 SizedBox(width: 10.0),

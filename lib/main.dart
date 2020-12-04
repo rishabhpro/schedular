@@ -7,6 +7,6 @@ import 'package:schedular/screens/login_page.dart';
 
 void main() {
   runApp(MaterialApp(
-    home:LoginPage(),
+    home:EntryPage(),
   ));
 }

@@ -42,7 +42,7 @@ class _EntryPageState extends State<EntryPage> {
                   fontSize: 15.0,
                 ),
                 ),
-                SizedBox(height: 270.0),
+                SizedBox(height: 20.0),
             Row(children: <Widget>[
               Text('Not a member => ',
               style:TextStyle(
