@@ -8,6 +8,6 @@ import 'package:schedular/screens/Teacher DashBoard.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: StudentDashBoard(),
+    home: LoginPage(),
   ));
 }

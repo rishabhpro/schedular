@@ -4,7 +4,6 @@ class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
-
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
@@ -85,30 +84,32 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ],
             ),
-            SizedBox(height: 20.0),
-            Row(
-              children: <Widget>[
-                SizedBox(width: 10.0),
-                Text('Not a member => ',
-                  style:TextStyle(
+            Padding(
+              padding: const EdgeInsets.fromLTRB(5.0, 100.0, 5.0, 5.0),
+              child: Row(
+                children: <Widget>[
+                  SizedBox(width: 10.0),
+                  Text('Not a member => ',
+                    style:TextStyle(
+                      color: Colors.blueGrey,
+                      fontSize: 14.2,
+                    ),
+                  ),
+                  FlatButton(
                     color: Colors.blueGrey,
-                    fontSize: 14.2,
+                    textColor: Colors.white,
+                    // disabledColor: Colors.grey,
+                    //  disabledTextColor: Colors.black,
+                   // padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                    //splashColor: Colors.blueAccent,
+                    onPressed: () {},
+                    child: Text(
+                      "Register!",
+                      style: TextStyle(fontSize: 20.0),
+                    ),
                   ),
-                ),
-                FlatButton(
-                  color: Colors.blueGrey,
-                  textColor: Colors.white,
-                  // disabledColor: Colors.grey,
-                  //  disabledTextColor: Colors.black,
-                 // padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                  //splashColor: Colors.blueAccent,
-                  onPressed: () {},
-                  child: Text(
-                    "Regiser!",
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

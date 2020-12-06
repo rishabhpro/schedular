@@ -5,7 +5,6 @@ class EntryPage extends StatefulWidget {
   @override
   _EntryPageState createState() => _EntryPageState();
 }
-
 class _EntryPageState extends State<EntryPage> {
   @override
   Widget build(BuildContext context) {
@@ -19,54 +18,50 @@ class _EntryPageState extends State<EntryPage> {
         fit: BoxFit.cover,
     ),
     ),
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(0.0, 250.0, 200.42, 0.0),
-            child: Column(
+          //alignment: Alignment.bottomCenter,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+               // SizedBox(height: 200.0),
                 RaisedButton.icon(onPressed: (){}, icon: Icon(
                   Icons.account_circle_outlined,
                   color: Colors.red[800],),
                     label: Text('Login',
                   style: TextStyle(
-                  color: Colors.white,
-                  backgroundColor: Colors.blueGrey,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 60.0,
-                  ),
-                ),
-                ),
-                Text('If you have already created your account with us '
-                    'then click on Login button',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15.0,
-                ),
-                ),
-                SizedBox(height: 20.0),
-            Row(children: <Widget>[
-              Text('Not a member => ',
-              style:TextStyle(
-                color: Colors.blueGrey,
-                fontSize: 14.2,
-              ),
-              ),
-                FlatButton(
                   color: Colors.blueGrey,
-                  textColor: Colors.white,
-                 // disabledColor: Colors.grey,
-                //  disabledTextColor: Colors.black,
-                  padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                  //splashColor: Colors.blueAccent,
-                  onPressed: () {},
-                  child: Text(
-                    "Regiser!",
-                    style: TextStyle(fontSize: 20.0),
+                  //backgroundColor: Colors.blueGrey,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 40.0,
                   ),
                 ),
-            ],
-            ),
+                ),
+            Padding(
+                  padding: const EdgeInsets.fromLTRB(5.0, 250.0, 5.0, 5.0),
+                  child: Row(
+                      children: <Widget>[
+                        Text('Not a member =>  ',
+                        style:TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 16.0,
+                        ),
+                        ),
+                          FlatButton(
+                            color: Colors.blueGrey,
+                            textColor: Colors.white,
+                           // disabledColor: Colors.grey,
+                          //  disabledTextColor: Colors.black,
+                            //padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                            //splashColor: Colors.blueAccent,
+                            onPressed: () {},
+                            child: Text(
+                              "Register!",
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                          ),
+                      ],
+                      ),
+                ),
               ],
-            ),
           ),
       ),
     ),
