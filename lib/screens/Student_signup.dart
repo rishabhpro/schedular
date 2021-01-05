@@ -66,26 +66,6 @@ class _SspState extends State<Ssp> {
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.grey[200],
-                              hintText: 'Name',
-                             // errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                              contentPadding: const EdgeInsets.all(15),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 20,),
-                          TextField(
-                           // controller: _text,
-                            style: TextStyle(fontSize: 20 , color: Colors.black38),
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.grey[200],
                               hintText: 'Email Address',
                             //  errorText: _validate ? 'Value Can\'t Be Empty' : null,
                               contentPadding: const EdgeInsets.all(15),
