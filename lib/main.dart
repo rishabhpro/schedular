@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:schedular/screens/Teacher_signUp.dart';
-import 'package:schedular/screens/Student_signup.dart';
+import 'file:///D:/schedular/schedular/lib/screens/Teacher_signUp.dart';
+import 'file:///D:/schedular/schedular/lib/screens/Student_signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:schedular/screens/login_page.dart';
 
 void main() {
   runApp(MaterialApp(

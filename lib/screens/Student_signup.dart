@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
+bool _success;
+String _userEmail;
 class Ssp extends StatefulWidget {
   @override
   _SspState createState() => _SspState();
@@ -12,14 +19,19 @@ class _SspState extends State<Ssp> {
 
   @override
   void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
     _text.dispose();
     super.dispose();
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
    //   resizeToAvoidBottomPadding: false,
       body: LayoutBuilder(
+        key: _formKey,
         builder: (BuildContext context,BoxConstraints viewportConstraints){
           return  Container(
             padding: const EdgeInsets.all(15),
@@ -61,7 +73,7 @@ class _SspState extends State<Ssp> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           TextField(
-                           // controller: _text,
+                            controller: _emailController,
                             style: TextStyle(fontSize: 20 , color: Colors.black38),
                             decoration: InputDecoration(
                               filled: true,
@@ -152,7 +164,7 @@ class _SspState extends State<Ssp> {
                           ),
                           SizedBox(height: 20,),
                           TextField(
-                            //controller: _text,
+                            controller: _passwordController,
                             obscureText: true,
                             style: TextStyle(fontSize: 20 , color: Colors.black38),
                             decoration: InputDecoration(
@@ -172,27 +184,27 @@ class _SspState extends State<Ssp> {
                             ),
                           ),
                           SizedBox(height: 20,),
-                          TextField(
-                            //controller: _text,
-                            obscureText: true,
-                            style: TextStyle(fontSize: 20 , color: Colors.black38),
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              hintText: 'Confirm Password',
-                             // errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                              contentPadding: const EdgeInsets.all(15),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 20,),
+                          // TextField(
+                          //   //controller: _text,
+                          //   obscureText: true,
+                          //   style: TextStyle(fontSize: 20 , color: Colors.black38),
+                          //   decoration: InputDecoration(
+                          //     filled: true,
+                          //     fillColor: Colors.grey[200],
+                          //     hintText: 'Confirm Password',
+                          //    // errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                          //     contentPadding: const EdgeInsets.all(15),
+                          //     focusedBorder: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.white),
+                          //       borderRadius: BorderRadius.circular(5),
+                          //     ),
+                          //     enabledBorder: UnderlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.white),
+                          //       borderRadius: BorderRadius.circular(5),
+                          //     ),
+                          //   ),
+                          // ),
+                          // SizedBox(height: 20,),
                           FlatButton(
                             child: Text('Sign Up',style: TextStyle(fontSize: 20),),
                             shape: OutlineInputBorder(
@@ -201,7 +213,17 @@ class _SspState extends State<Ssp> {
                             ),
                             padding: const EdgeInsets.all(15),
                             textColor: Colors.white70,
-                            onPressed: null,
+                            onPressed: () async {
+                              _lgin();
+                            },
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(_success == null
+                                ? ''
+                                : (_success
+                                ? 'Successfully registered ' + _userEmail
+                                : 'Registration failed')),
                           ),
                         ],
                       ),
@@ -216,5 +238,23 @@ class _SspState extends State<Ssp> {
       )
 
     );
+  }
+  void _lgin() async {
+    final FirebaseUser user = (await
+    _auth.createUserWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    )
+    ).user;
+    if (user != null) {
+      setState(() {
+        _success = true;
+        _userEmail = user.email;
+      });
+    } else {
+      setState(() {
+        _success = true;
+      });
+    }
   }
 }

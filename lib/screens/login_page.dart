@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 class LoginPage extends StatefulWidget {
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 class _LoginPageState extends State<LoginPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _success;
+  String _userEmail;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _formKey,
       backgroundColor: Colors.grey,
       body: SafeArea(
         child: Container(
@@ -23,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             Padding(padding: EdgeInsets.fromLTRB(0.0, 310.0, 0.0, 0.0),),
             TextField(
+              controller: _emailController,
               style: TextStyle(fontSize: 20.0,color: Colors.black54),
               decoration:InputDecoration(
                 filled: true,
@@ -37,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 15.0),
             TextField(
-              // controller: _text,
+               controller: _passwordController,
               style: TextStyle(fontSize: 20.0 , color: Colors.black54),
               decoration: InputDecoration(
                 filled: true,
@@ -76,7 +85,9 @@ class _LoginPageState extends State<LoginPage> {
                 //  disabledTextColor: Colors.black,
                // padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                 //splashColor: Colors.blueAccent,
-                onPressed: () {},
+                onPressed: () async {
+                  _signInWithEmailAndPassword();
+                },
                 child: Text(
                   "Login",
                   style: TextStyle(fontSize: 20.0),
@@ -84,37 +95,72 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ],
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(5.0, 100.0, 5.0, 5.0),
-              child: Row(
-                children: <Widget>[
-                  SizedBox(width: 10.0),
-                  Text('Not a member => ',
-                    style:TextStyle(
-                      color: Colors.blueGrey,
-                      fontSize: 14.2,
-                    ),
-                  ),
-                  FlatButton(
-                    color: Colors.blueGrey,
-                    textColor: Colors.white,
-                    // disabledColor: Colors.grey,
-                    //  disabledTextColor: Colors.black,
-                   // padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                    //splashColor: Colors.blueAccent,
-                    onPressed: () {},
-                    child: Text(
-                      "Register!",
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                  ),
-                ],
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                _success == null
+                    ? ''
+                    : (_success
+                    ? 'Successfully signed in ' + _userEmail
+                    : 'Sign in failed'),
+                style: TextStyle(color: Colors.red),
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(5.0, 100.0, 5.0, 5.0),
+            //   child: Row(
+            //     children: <Widget>[
+            //       SizedBox(width: 10.0),
+            //       Text('Not a member => ',
+            //         style:TextStyle(
+            //           color: Colors.blueGrey,
+            //           fontSize: 14.2,
+            //         ),
+            //       ),
+            //       FlatButton(
+            //         color: Colors.blueGrey,
+            //         textColor: Colors.white,
+            //         // disabledColor: Colors.grey,
+            //         //  disabledTextColor: Colors.black,
+            //        // padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+            //         //splashColor: Colors.blueAccent,
+            //         onPressed: () {},
+            //         child: Text(
+            //           "Register!",
+            //           style: TextStyle(fontSize: 20.0),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
         ),
       ),
     );
+  }
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+  void _signInWithEmailAndPassword() async {
+    final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    )).user;
+
+    if (user != null) {
+      setState(() {
+        _success = true;
+        _userEmail = user.email;
+      });
+    } else {
+      setState(() {
+        _success = false;
+      });
+    }
   }
 }
