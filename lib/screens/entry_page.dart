@@ -23,7 +23,9 @@ class _EntryPageState extends State<EntryPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                // SizedBox(height: 200.0),
-                RaisedButton.icon(onPressed: (){}, icon: Icon(
+                RaisedButton.icon(onPressed: (){
+                  Navigator.pushNamed(context, '/login');
+                }, icon: Icon(
                   Icons.account_circle_outlined,
                   color: Colors.red[800],),
                     label: Text('Login',
@@ -52,7 +54,9 @@ class _EntryPageState extends State<EntryPage> {
                           //  disabledTextColor: Colors.black,
                             //padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                             //splashColor: Colors.blueAccent,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/studentsignup');
+                            },
                             child: Text(
                               "Register!",
                               style: TextStyle(fontSize: 20.0),
