@@ -6,17 +6,19 @@ import 'package:schedular/screens/LandingPage.dart';
 import 'package:schedular/screens/Student%20DashBoard.dart';
 import 'package:schedular/screens/entry_page.dart';
 import 'package:schedular/screens/login_page.dart';
+import 'package:schedular/screens/Dashboard.dart';
 
 void main() {
   runApp(MaterialApp(
-      initialRoute: '/entrypage',
+      initialRoute: '/dash',
       routes: {
       '/entrypage': (context) => EntryPage(),
       '/studentdashboard': (context) => StudentDashBoard(),
       '/login': (context) => LoginPage(),
       '/teachersignup' : (context) => Tsp(),
        '/studentsignup': (context) => Ssp(),
-       '/lp': (context) => LandingPage(),}
+       '/lp': (context) => LandingPage(),
+       '/dash' : (context) => Dashboard(),}
    // home: EntryPage(),
   ));
 }
