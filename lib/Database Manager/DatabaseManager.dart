@@ -2,18 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseManager {
   final CollectionReference profileList =
-  Firestore.instance.collection('profileInfo');
+  Firestore.instance.collection('Time Table');
 
   Future<void> createUserData(
-      String name, String gender, int score, String uid) async {
+      String one, String two, String three, String four, String five) async {
     return await profileList
-        .document(uid)
-        .setData({'name': name, 'gender': gender, 'score': score});
+        .document()
+        .setData({'one': one, 'two': two, 'three': three, 'four': four, 'five': five});
   }
 
-  Future updateUserList(String name, String gender, int score, String uid) async {
-    return await profileList.document(uid).updateData({
-      'name': name, 'gender': gender, 'score': score
+  Future updateUserList(String one, String two, String three, String four,String five) async {
+    return await profileList.document().updateData({
+      'one': one, 'two': two, 'three': three, 'four': four, 'five': five
     });
   }
 
