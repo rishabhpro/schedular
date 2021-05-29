@@ -8,14 +8,7 @@ import 'file:///D:/schedular/schedular/lib/screens/Student_signup.dart';
 import 'file:///D:/schedular/schedular/lib/screens/Teacher_signUp.dart';
 
 void main() {
-  runApp(MaterialApp(initialRoute: '/entrypage', routes: {
-    '/entrypage': (context) => EntryPage(),
-    '/studentdashboard': (context) => StudentDashBoard(),
-    '/login': (context) => LoginPage(),
-    '/teachersignup': (context) => Tsp(),
-    '/studentsignup': (context) => Ssp(),
-    '/lp': (context) => LandingPage(),
-  }
-      // home: EntryPage(),
+  runApp(MaterialApp(
+      home: LoginPage(),
       ));
 }

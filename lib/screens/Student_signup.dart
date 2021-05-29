@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
-final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-final TextEditingController _emailController = TextEditingController();
-final TextEditingController _passwordController = TextEditingController();
+FirebaseAuth _auth = FirebaseAuth.instance;
+GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+TextEditingController _emailController = TextEditingController();
+TextEditingController _passwordController = TextEditingController();
 
 bool _success;
 String _userEmail;
@@ -18,13 +18,7 @@ class _SspState extends State<Ssp> {
   final _text = TextEditingController();
   bool _validate = false;
 
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _text.dispose();
-    super.dispose();
-  }
+
 
 
   @override
@@ -79,7 +73,7 @@ class _SspState extends State<Ssp> {
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.grey[200],
-                              hintText: 'Email Address',
+                          //    hintText: 'Email Address',
                             //  errorText: _validate ? 'Value Can\'t Be Empty' : null,
                               contentPadding: const EdgeInsets.all(15),
                               focusedBorder: OutlineInputBorder(
@@ -239,6 +233,13 @@ class _SspState extends State<Ssp> {
       )
 
     );
+  }
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _text.dispose();
+    super.dispose();
   }
   void _lgin() async {
     final FirebaseUser user = (await
