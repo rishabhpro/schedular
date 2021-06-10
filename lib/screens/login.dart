@@ -43,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                   TextFormField(
                     controller: _password,
                     decoration: InputDecoration(hintText: "Password"),
+                    obscureText: true
                   ),
                   FlatButton(
                       color: Colors.blue,
