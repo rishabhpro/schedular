@@ -5,19 +5,18 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:schedular/screens/login.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'highImpChannel' ,//id
-  'Class Notification' ,//title
-  'Zoom Link For Class' , // description
-  importance: Importance.high,
-  playSound: true
-);
+    'highImpChannel', //id
+    'Class Notification', //title
+    'Zoom Link For Class', // description
+    importance: Importance.high,
+    playSound: true);
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   print('class is starting : ${message.messageId}');
-
 }
 
 Future<void> main() async {
@@ -27,8 +26,9 @@ Future<void> main() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   await flutterLocalNotificationsPlugin
-    .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-    ?.createNotificationChannel(channel);
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
 
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,

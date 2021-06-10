@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:schedular/Database%20Manager/DatabaseManager.dart';
+import 'package:schedular/model/student.dart';
+import 'package:schedular/screens/studentdashboard.dart';
 
 import 'auth_provider.dart';
-import 'home.dart';
 import 'login.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -13,9 +15,10 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController _email = TextEditingController();
   TextEditingController _name = TextEditingController();
   TextEditingController _branch = TextEditingController();
+  TextEditingController _year = TextEditingController();
   TextEditingController _course = TextEditingController();
   TextEditingController _password = TextEditingController();
-  //late Student _student;
+  Student _student;
 
   bool isLoading = false;
   @override
@@ -61,13 +64,25 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: _branch,
                       decoration: InputDecoration(hintText: "Branch"),
                     ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    TextFormField(
+                      controller: _year,
+                      decoration: InputDecoration(hintText: "Year"),
+                    ),
                     // ignore: deprecated_member_use
                     FlatButton(
                         color: Colors.blue,
                         onPressed: () {
                           setState(() {
-                            // _student = new Student(_name.text, _email.text,
-                            //     _password.text, _course.text, _branch.text);
+                            _student = new Student(
+                                _name.text,
+                                _email.text,
+                                _password.text,
+                                _course.text,
+                                _branch.text,
+                                _year.text);
                             isLoading = true;
                           });
                           AuthClass()
@@ -77,13 +92,14 @@ class _RegisterPageState extends State<RegisterPage> {
                               .then((value) {
                             if (value == "Account created") {
                               setState(() {
-                                //sendData("Students", "id", _student.toJson());
+                                Database(AuthClass().getCurrentUser())
+                                    .sendData(_student.toJson());
                                 isLoading = false;
                               });
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HomePage()),
+                                      builder: (context) => StudentDashBoard()),
                                   (route) => false);
                             } else {
                               setState(() {

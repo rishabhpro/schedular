@@ -56,6 +56,15 @@ class AuthClass {
     auth.signOut();
   }
 
+  //Get Current User Id
+  String getCurrentUser() {
+    if (auth.currentUser != null) {
+      return FirebaseAuth.instance.currentUser.uid;
+    } else {
+      return "Please SignIn";
+    }
+  }
+
   //Google Auth
   // Future<UserCredential> signWithGoogle() async {
   //   final GoogleSignInAccount googleUser =
