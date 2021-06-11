@@ -132,7 +132,7 @@ class _StudentDashBoardState extends State<StudentDashBoard> {
           ),
         ),
       ),
-      body: Text('body'),
+      body: Calendar(),
     );
   }
 }

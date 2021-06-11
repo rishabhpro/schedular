@@ -1,11 +1,7 @@
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:schedular/main.dart';
+import 'package:schedular/screens/studentdashboard.dart';
+
 import 'auth_provider.dart';
-import 'home.dart';
 import 'register.dart';
 import 'reset.dart';
 
@@ -19,8 +15,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _password = TextEditingController();
 
   bool isLoading = false;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HomePage()),
+                                    builder: (context) => StudentDashBoard()),
                                 (route) => false);
                           } else {
                             setState(() {

@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:schedular/Database%20Manager/DatabaseManager.dart';
 import 'package:schedular/model/student.dart';
-import 'package:schedular/screens/EventForm.dart';
 import 'package:schedular/screens/auth_provider.dart';
 import 'package:schedular/shared/loading.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -18,20 +18,22 @@ class _CalendarState extends State<Calendar> {
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
   String id;
+  final CollectionReference timetableReference =
+      FirebaseFirestore.instance.collection('TimeTable');
 
   @override
   Widget build(BuildContext context) {
     //Event Showing Panel
-    void _showEventsPanel() {
-      showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-              child: EventsPage(),
-            );
-          });
-    }
+    // void _showEventsPanel() {
+    //   showModalBottomSheet(
+    //       context: context,
+    //       builder: (context) {
+    //         return Container(
+    //           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+    //           child: EventsPage(),
+    //         );
+    //       });
+    // }
 
     return StreamBuilder<Student>(
       stream: Database(AuthClass().getCurrentUser()).userData,
@@ -41,97 +43,101 @@ class _CalendarState extends State<Calendar> {
 
           id = student.course + student.branch + student.year;
 
-          return Scaffold(
-            appBar: AppBar(
-              title: Text("TimeTable"),
-              centerTitle: true,
-            ),
-            body: Column(
-              children: [
-                TableCalendar(
-                  focusedDay: DateTime.now(),
-                  firstDay: DateTime(1990),
-                  lastDay: DateTime(2050),
-                  startingDayOfWeek: StartingDayOfWeek.monday,
-                  headerStyle: HeaderStyle(
-                    formatButtonVisible: false,
-                    titleCentered: true,
-                    headerPadding: EdgeInsets.only(left: 400, right: 400),
-                    headerMargin: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                  ),
-                  selectedDayPredicate: (day) {
-                    return isSameDay(_selectedDay, day);
-                  },
-                  onDaySelected: (selectDay, focusedDay) {
-                    setState(() {
-                      _selectedDay = selectDay;
-                      _focusedDay =
-                          focusedDay; // update `_focusedDay` here as well
-                    });
-                  },
+          return Column(
+            children: [
+              TableCalendar(
+                focusedDay: DateTime.now(),
+                firstDay: DateTime(1990),
+                lastDay: DateTime(2050),
+                startingDayOfWeek: StartingDayOfWeek.monday,
+                headerStyle: HeaderStyle(
+                  formatButtonVisible: false,
+                  titleCentered: true,
+                  headerPadding: EdgeInsets.only(left: 400, right: 400),
+                  headerMargin: EdgeInsets.fromLTRB(0, 20, 0, 20),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
-                Expanded(
+                selectedDayPredicate: (day) {
+                  return isSameDay(_selectedDay, day);
+                },
+                onDaySelected: (selectDay, focusedDay) {
+                  setState(() {
+                    _selectedDay = selectDay;
+                    _focusedDay =
+                        focusedDay; // update `_focusedDay` here as well
+                  });
+                },
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40)),
+                      color: Colors.white),
                   child: Container(
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            topRight: Radius.circular(40)),
-                        color: Colors.white),
-                    child: Container(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  _selectedDay.day.toString() +
-                                      "/" +
-                                      _selectedDay.month.toString() +
-                                      "/" +
-                                      _selectedDay.year.toString(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Column(
-                              children: [
-                                // dayTask("10am", "Data Compression", "11am"),
-                                // dayTask("12am", "Machine Learning", "1am"),
-                                // dayTask("2am", "Michael Hamilton"),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                _selectedDay.day.toString() +
+                                    "/" +
+                                    _selectedDay.month.toString() +
+                                    "/" +
+                                    _selectedDay.year.toString(),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Column(
+                            children: [
+                              // dayTask("10am", "Data Compression", "11am"),
+                              // dayTask("12am", "Machine Learning", "1am"),
+                              // dayTask("2am", "Michael Hamilton"),
 
-                                Expanded(
-                                  child: Database(AuthClass().getCurrentUser())
-                                      .timetable(),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
+                              Expanded(
+                                child: StreamBuilder(
+                                    stream: timetableReference.snapshots(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return ListView();
+                                      } else {
+                                        return Center(
+                                          child: Text("No Data"),
+                                        );
+                                      }
+                                    }),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
                   ),
-                )
-              ],
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () => _showEventsPanel(),
-              child: Text(
-                "+",
-                style: TextStyle(
-                  fontSize: 20,
                 ),
-              ),
-            ),
+              )
+            ],
           );
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: () => _showEventsPanel(),
+          //   child: Text(
+          //     "+",
+          //     style: TextStyle(
+          //       fontSize: 20,
+          //     ),
+          //   ),
+          // ),
+
         } else {
           return Loading();
         }
