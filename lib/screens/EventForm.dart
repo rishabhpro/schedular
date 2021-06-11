@@ -20,7 +20,7 @@ class _EventsPageState extends State<EventsPage> {
   String _startTime;
   String _endTime;
   String _link;
-  String _branchSelected;
+  String _branchSelected = 'CSE';
   String _daySelected;
 
   @override
@@ -42,13 +42,13 @@ class _EventsPageState extends State<EventsPage> {
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
-                  decoration: textInputDecoration,
+                  decoration: decoratorForm("Enter Day"),
                   validator: (val) => val.isEmpty ? 'Enter Day' : null,
                   onChanged: (val) => setState(() => _daySelected = val),
                 ),
                 SizedBox(height: 20.0),
                 TextFormField(
-                  decoration: textInputDecoration,
+                  decoration: decoratorForm('Enter Subject'),
                   validator: (val) => val.isEmpty ? 'Enter Subject' : null,
                   onChanged: (val) => setState(() => _subject = val),
                 ),
@@ -65,24 +65,20 @@ class _EventsPageState extends State<EventsPage> {
                   onChanged: (val) => setState(() => _branchSelected = val),
                 ),
                 SizedBox(height: 20.0),
-                // Row(
-                //   children: [
-                //     TextFormField(
-                //       //decoration: textInputDecoration,
-                //       validator: (val) => val.isEmpty ? 'Start Time' : null,
-                //       onChanged: (val) => setState(() => _startTime = val),
-                //     ),
-                //     SizedBox(height: 20.0),
-                //     TextFormField(
-                //       //decoration: textInputDecoration,
-                //       validator: (val) => val.isEmpty ? 'End Time' : null,
-                //       onChanged: (val) => setState(() => _endTime = val),
-                //     ),
-                //   ],
-                // ),
+                TextFormField(
+                  decoration: decoratorForm('Start Time'),
+                  validator: (val) => val.isEmpty ? 'Start Time' : null,
+                  onChanged: (val) => setState(() => _startTime = val),
+                ),
+                SizedBox(height: 20.0),
+                TextFormField(
+                  decoration: decoratorForm('End Time'),
+                  validator: (val) => val.isEmpty ? 'End Time' : null,
+                  onChanged: (val) => setState(() => _endTime = val),
+                ),
                 SizedBox(height: 10.0),
                 TextFormField(
-                  decoration: textInputDecoration,
+                  decoration: decoratorForm('Enter Zoom Link'),
                   validator: (val) => val.isEmpty ? 'Enter Zoom Link' : null,
                   onChanged: (val) => setState(() => _link = val),
                 ),
@@ -96,15 +92,14 @@ class _EventsPageState extends State<EventsPage> {
                     onPressed: () async {
                       //send data to firebase
 
-                      if ( //_subject != null &&
-                          //_startTime != null &&
-                          // _endTime != null &&
-                          //_link != null &&
-                          //_branchSelected != null &&
-                          // _daySelected != null)
-                          1 == 1) {
+                      if (_subject != null &&
+                          _startTime != null &&
+                          _endTime != null &&
+                          _link != null &&
+                          _branchSelected != null &&
+                          _daySelected != null) {
                         timetable = new Timetable(_branchSelected, _daySelected,
-                            _subject, "_startTime", "endTime", _link);
+                            _subject, _startTime, _endTime, _link);
 
                         setState(() {
                           Database(AuthClass().getCurrentUser()).sendTimetable(
@@ -119,6 +114,21 @@ class _EventsPageState extends State<EventsPage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  InputDecoration decoratorForm(String hint) {
+    return InputDecoration(
+      fillColor: Colors.white,
+      hintText: hint,
+      filled: true,
+      contentPadding: EdgeInsets.all(12.0),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white, width: 2.0),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.pink, width: 2.0),
       ),
     );
   }
